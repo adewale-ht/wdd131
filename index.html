@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WDD 131 – Dynamic Web Fundamentals – Adekunle Adewale John</title>
+    <meta name="description" content="WDD 131 – Dynamic Web Fundamentals. Adekunle Adewale John. Course on HTML, CSS, JavaScript, web development, and dynamic web projects.">
+    <meta name="author" content="Adekunle Adewale John">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto+Serif:opsz,wght@8..144,500&display=swap">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <span id="course-title">WDD 131 – Dynamic Web Fundamentals</span>
+        <nav>
+            <ul>
+                <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a></li>
+                <li><a href="https://byupw.instructure.com/" target="_blank" rel="noopener">Canvas</a></li>
+                <li><a href="https://www.churchofjesuschrist.org/study/scriptures/bofm/1-ne/3?lang=eng&id=p7#p7" target="_blank" rel="noopener">Favorite Scripture</a></li>
+                <li><a href="#">Final Project</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Adekunle Adewale John</h1>
+        <section class="card">
+            <h2>About Me</h2>
+            <img src="images/profile.jpg" alt="Adekunle Adewale John profile photo" width="200" height="200">
+            <p>Hello! I'm Adekunle Adewale John, a web development enthusiast from Nigeria. I enjoy building dynamic and accessible web applications.</p>
+        </section>
+        <section class="card">
+            <h2>My Interests</h2>
+            <img src="images/interest.jpg" alt="new technologies" width="200" height="200">
+            <p>I love learning new technologies, exploring the outdoors, and working on creative web projects. My favorite part of web development is making interactive and user-friendly sites.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; <span id="currentyear"></span> Adekunle Adewale John, Nigeria.</p>
+        <p id="lastModified"></p>
+    </footer>
+    <script>
+       
+        document.getElementById("currentyear").textContent = new Date().getFullYear();
+
+        
+        document.getElementById("lastModified").textContent = "Last Modified: " + document.lastModified;
+    </script>
+</body>
+</html>
