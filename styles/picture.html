@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Picture Gallery – Adekunle Adewale John</title>
+    <meta name="description" content="Responsive image gallery with accessible navigation, dynamic copyright, and last modified date.">
+    <meta name="author" content="Adekunle Adewale John">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto+Serif:opsz,wght@8..144,500&display=swap">
+    <link rel="stylesheet" href="picture.css">
+    <script src="../scripts/getdates.js" defer></script>
+    <script src="picture.js" defer></script>
+</head>
+<body>
+    <header>
+        <span id="course-title">Responsive Picture Gallery</span>
+        <nav>
+            <button id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">&#9776;</button>
+            <ul id="nav-list">
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1 id="gallery">Gallery</h1>
+        <div class="gallery">
+            <figure>
+                <img src="../images/profile.jpg" alt="Profile photo" loading="lazy">
+                <figcaption>Profile Photo</figcaption>
+            </figure>
+            <figure>
+                <img src="../images/interest.jpg" alt="Interest image" loading="lazy">
+                <figcaption>Interest</figcaption>
+            </figure>
+            <figure>
+                <img src="../images/interest.jpeg" alt="Another interest" loading="lazy">
+                <figcaption>Another Interest</figcaption>
+            </figure>
+        </div>
+        <section id="about">
+            <h2>About</h2>
+            <p>This gallery demonstrates responsive images, accessible navigation, and dynamic JavaScript in a modern web layout.</p>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Email: <a href="mailto:adewaleadekunlejohn14th@gmail.com">adewaleadekunlejohn14th@gmail.com</a></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; <span id="currentyear"></span> Adekunle Adewale John, Nigeria.</p>
+        <p id="lastModified"></p>
+    </footer>
+    <script>
+    // Hamburger menu toggle
+    const menuBtn = document.getElementById('menu-toggle');
+    const navList = document.getElementById('nav-list');
+    menuBtn.addEventListener('click', function() {
+        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.setAttribute('aria-expanded', !expanded);
+        navList.style.display = navList.style.display === 'flex' ? 'none' : 'flex';
+    });
+    // Responsive nav on resize
+    window.addEventListener('resize', function() {
+        if(window.innerWidth > 600) navList.style.display = 'flex';
+        else navList.style.display = 'none';
+    });
+    </script>
+</body>
+</html>
