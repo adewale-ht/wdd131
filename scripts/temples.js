@@ -1,14 +1,10 @@
-// Hamburger menu toggle for responsive navigation
-const menuBtn = document.getElementById('menu-toggle');
-const navList = document.getElementById('nav-list');
-if (menuBtn && navList) {
-    menuBtn.addEventListener('click', function() {
-        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-        menuBtn.setAttribute('aria-expanded', !expanded);
-        navList.style.display = navList.style.display === 'flex' ? 'none' : 'flex';
+
+document.addEventListener("DOMContentLoaded", () => {
+    const menuButton = document.getElementById("menu-button");
+    const nav = document.getElementById("main-nav");
+
+    menuButton.addEventListener("click", () => {
+        nav.classList.toggle("open");
+        nav.classList.toggle("closed");
     });
-    window.addEventListener('resize', function() {
-        if(window.innerWidth > 600) navList.style.display = 'flex';
-        else navList.style.display = 'none';
-    });
-}
+});

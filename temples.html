@@ -6,10 +6,12 @@
     <title>Temple Gallery – Adekunle Adewale John</title>
     <meta name="description" content="A responsive gallery of beautiful temples with accessible navigation and dynamic JavaScript.">
     <meta name="author" content="Adekunle Adewale John">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto+Serif:opsz,wght@8..144,500&display=swap">
+    <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/temples.css">
     <link rel="stylesheet" href="styles/temples-large.css">
     <script src="scripts/getdates.js" defer></script>
@@ -18,9 +20,10 @@
 <body>
     <header>
         <span id="course-title">Temple Gallery</span>
-        <nav>
+        <button id="menu-button" aria-label="Toggle Navigation Menu">☰</button>
+        <nav id="main-nav" class="closed">
             <ul>
-                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#temple-gallery">Gallery</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="#resources">Resources</a></li>
@@ -29,56 +32,60 @@
         </nav>
     </header>
     <main>
-        <h1 id="Temple-gallery"> Temple </h1>
+        <h1>Temple Gallery</h1>
+
         <section id="temple-gallery">
-        <h2>Featured Temples</h2>
-        <div class="gallery">
-            <figure>
-                <img src="images/salt-lake-city-398843_640.jpg" alt="Salt Lake City Temple, a historic temple with spires against a blue sky" loading="lazy">
-                <figcaption>Salt Lake City Temple</figcaption>
-            </figure>
-            <figure>
-                <img src="images/ogden-utah-temple-4173-thumb.jpg" alt="Ogden Utah Temple, white spires and blue sky" loading="lazy">
-                <figcaption>Ogden Utah Temple</figcaption>
-            </figure>
-            <figure>
-                <img src="images/rexburg-idaho-temple-33444-thumb.jpg" alt="Rexburg Idaho Temple, white building with golden statue" loading="lazy">
-                <figcaption>Rexburg Idaho Temple</figcaption>
-            </figure>
-            <figure>
-                <img src="images/rexburg_temple_lds.webp" alt="Rexburg Idaho Temple, Latter-day Saints temple" loading="lazy">
-                <figcaption>Rexburg Idaho Temple (LDS)</figcaption>
-            </figure>
-            <figure>
-                <img src="images/teton-river-idaho-temple-45310-main.jpg" alt="Teton River Idaho Temple, scenic view" loading="lazy">
-                <figcaption>Teton River Idaho Temple</figcaption>
-            </figure>
-            <figure>
-                <img src="images/rexburg_idaho_temple.webp" alt="Rexburg Idaho Temple, webp format" loading="lazy">
-                <figcaption>Rexburg Idaho Temple (WebP)</figcaption>
-            </figure>
-            <figure>
-                <img src="images/rexburg-idaho-temple-1057-main.jpg" alt="Rexburg Idaho Temple, main view" loading="lazy">
-                <figcaption>Rexburg Idaho Temple (Main View)</figcaption>
-            </figure>
-            <figure>
-                <img src="images/aba-nigeria-temple-5087-main.jpg" alt="Aba Nigeria Temple, white building with palm trees" loading="lazy">
-                <figcaption>Aba Nigeria Temple</figcaption>
-            </figure>
-            <figure>
-                <img src="images/accra-ghana-temple-13760-main.jpg" alt="Accra Ghana Temple, white building with palm trees" loading="lazy">
-                <figcaption>Accra Ghana Temple</figcaption>
-            </figure>
-        </div>
+            <h2>Featured Temples</h2>
+            <div class="gallery">
+                <figure>
+                    <img src="images/salt-lake-city-398843_640.jpg" alt="Salt Lake City Temple, a historic temple with spires against a blue sky" loading="lazy">
+                    <figcaption>Salt Lake City Temple</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/ogden-utah-temple-4173-thumb.jpg" alt="Ogden Utah Temple, white spires and blue sky" loading="lazy">
+                    <figcaption>Ogden Utah Temple</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/rexburg-idaho-temple-33444-thumb.jpg" alt="Rexburg Idaho Temple, white building with golden statue" loading="lazy">
+                    <figcaption>Rexburg Idaho Temple</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/rexburg_temple_lds.webp" alt="Rexburg Idaho Temple, Latter-day Saints temple" loading="lazy">
+                    <figcaption>Rexburg Idaho Temple (LDS)</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/teton-river-idaho-temple-45310-main.jpg" alt="Teton River Idaho Temple, scenic view" loading="lazy">
+                    <figcaption>Teton River Idaho Temple</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/rexburg_idaho_temple.webp" alt="Rexburg Idaho Temple, webp format" loading="lazy">
+                    <figcaption>Rexburg Idaho Temple (WebP)</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/rexburg-idaho-temple-1057-main.jpg" alt="Rexburg Idaho Temple, main view" loading="lazy">
+                    <figcaption>Rexburg Idaho Temple (Main View)</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/aba-nigeria-temple-5087-main.jpg" alt="Aba Nigeria Temple, white building with palm trees" loading="lazy">
+                    <figcaption>Aba Nigeria Temple</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/accra-ghana-temple-13760-main.jpg" alt="Accra Ghana Temple, white building with palm trees" loading="lazy">
+                    <figcaption>Accra Ghana Temple</figcaption>
+                </figure>
+            </div>
         </section>
+
         <section id="about">
             <h3>About</h3>
             <p>This gallery features beautiful temples from around the world. The layout is fully responsive, accessible, and demonstrates modern web design best practices.</p>
         </section>
+
         <section id="contact">
             <h3>Contact</h3>
             <p>Email: <a href="mailto:adewaleadekunlejohn14th@gmail.com">adewaleadekunlejohn14th@gmail.com</a></p>
         </section>
+
         <section id="resources">
             <h3>Resources</h3>
             <p>Images are from the local project folder and optimized for web use.</p>
