@@ -1,13 +1,20 @@
+
 :root {
+  --main-bg-color: #f9f9f9;
   --primary-color: #003366;
-  --accent-color: #f4f4f4;
+  --text-color: #333;
+  --accent-color: #ffcc00;
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Roboto Serif', serif;
 }
 
 body {
-  font-family: 'Roboto Serif', serif;
+  font-family: var(--font-body);
   margin: 0;
   padding: 0;
   line-height: 1.6;
+  background-color: var(--main-bg-color);
+  color: var(--text-color);
 }
 
 header {
@@ -16,18 +23,29 @@ header {
   padding: 1rem;
 }
 
+#course-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+}
+
 nav ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   padding: 0;
+  margin: 0;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
 }
+
+nav a:hover {
+  color: var(--accent-color);
+}
+
 
 main {
   padding: 1rem;
@@ -37,13 +55,18 @@ main {
   border: 1px solid #ccc;
   padding: 1rem;
   margin-bottom: 1rem;
+  background-color: #fff;
+  border-radius: 5px;
 }
+
 
 .hero {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 5px;
 }
+
 
 .weather-box {
   display: flex;
@@ -52,6 +75,14 @@ main {
 
 .icon-mobile {
   display: block;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+  border-top: 1px solid #ccc;
 }
 
 @media (min-width: 800px) {
@@ -75,3 +106,4 @@ main {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }
+
