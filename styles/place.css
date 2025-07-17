@@ -1,4 +1,8 @@
-/* Base Styles */
+:root {
+  --primary-color: #003366;
+  --accent-color: #f4f4f4;
+}
+
 body {
   font-family: 'Roboto Serif', serif;
   margin: 0;
@@ -7,7 +11,7 @@ body {
 }
 
 header {
-  background-color: #003366;
+  background-color: var(--primary-color);
   color: #fff;
   padding: 1rem;
 }
@@ -50,20 +54,17 @@ main {
   display: block;
 }
 
-/* Desktop Only: Hide SVG and show pseudo-element emoji */
 @media (min-width: 800px) {
+  h1::after {
+    content: " 😊";
+    font-size: 1.2rem;
+  }
+
   .icon-mobile {
     display: none;
   }
-
-  h1::after {
-    content: " 😊"; /* ← Required for the rubric */
-    font-size: 1.5rem;
-    margin-left: 0.5rem;
-  }
 }
 
-/* Mobile Navigation */
 @media (max-width: 600px) {
   nav ul {
     flex-direction: column;
