@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Web AI Chat</title>
+    <link rel="stylesheet" href="styles/ai.css">
+</head>
+<body>
+    <div class="container">
+        <h2>AI Chat</h2>
+        <div id="avatar-controls">
+            <button onclick="moveAvatar('left')">&#8592;</button>
+            <button onclick="moveAvatar('up')">&#8593;</button>
+            <button onclick="moveAvatar('down')">&#8595;</button>
+            <button onclick="moveAvatar('right')">&#8594;</button>
+            <button onclick="moveAvatar('center')">&#9679;</button>
+            <button id="clothesBtn" title="Change Clothes">👗</button>
+            <button id="dayNightBtn" title="Toggle Day/Night">🌞</button>
+            <button id="danceBtn" title="Dance!">💃</button>
+            <button id="spin3dBtn" title="3D Spin">🌀</button>
+        </div>
+        <div id="avatar">
+            <div class="avatar-anim" id="avatarAnim">
+                <div class="avatar-neck"></div>
+                <div class="avatar-face">
+                    <div class="avatar-ear left"></div>
+                    <div class="avatar-ear right"></div>
+                    <div class="hair"></div>
+                    <div class="avatar-brow left"></div>
+                    <div class="avatar-brow right"></div>
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                    <div class="avatar-nose"></div>
+                    <div class="avatar-cheek left"></div>
+                    <div class="avatar-cheek right"></div>
+                    <div class="mouth"></div>
+                </div>
+                <div class="avatar-shoulders"></div>
+                <div class="avatar-body"></div>
+                <div class="avatar-arm left"></div>
+                <div class="avatar-arm right"></div>
+                <div class="avatar-hand left"></div>
+                <div class="avatar-hand right"></div>
+                <div class="avatar-leg left"></div>
+                <div class="avatar-leg right"></div>
+                <div class="avatar-foot left"></div>
+                <div class="avatar-foot right"></div>
+            </div>
+        </div>
+        <div id="chat"></div>
+        <div id="inputArea">
+            <input type="text" id="userInput" placeholder="Type your message..." autofocus />
+            <button id="sendBtn">Send</button>
+            <button id="clearBtn" title="Clear Chat">🗑️</button>
+            <button id="themeBtn" title="Toggle Theme">🌙</button>
+        </div>
+        <div id="typing" style="display:none; color:#888; margin-top:8px;">AI is typing...</div>
+    </div>
+    <script>
+        const chat = document.getElementById('chat');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const typingDiv = document.getElementById('typing');
+        let userName = null;
+        let memory = [];
+        // Avatar movement logic
+        const avatarAnim = document.getElementById('avatarAnim');
+        let avatarX = 0, avatarY = 0;
+        function moveAvatar(dir) {
+            const step = 24;
+            if (dir === 'left') avatarX -= step;
+            if (dir === 'right') avatarX += step;
+            if (dir === 'up') avatarY -= step;
+            if (dir === 'down') avatarY += step;
+            if (dir === 'center') { avatarX = 0; avatarY = 0; }
+            avatarAnim.style.transform = `translate(${avatarX}px, ${avatarY}px)`;
+        }
+        // Avatar clothes logic
+        const clothesBtn = document.getElementById('clothesBtn');
+        const dayNightBtn = document.getElementById('dayNightBtn');
+        const danceBtn = document.getElementById('danceBtn');
+        const spin3dBtn = document.getElementById('spin3dBtn');
+        const avatarBody = document.querySelector('.avatar-body');
+        const avatarArmL = document.querySelector('.avatar-arm.left');
+        const avatarArmR = document.querySelector('.avatar-arm.right');
+        const dayDressColors = [
+            '#f9a8d4', '#f472b6', '#a78bfa', '#60a5fa', '#34d399', '#fbbf24', '#f87171',
+            'rgba(249,168,212,0.5)', 'rgba(164,120,250,0.4)' // transparent day
+        ];
+        const nightDressColors = [
+            '#6366f1', '#0ea5e9', '#14b8a6', '#f59e42', '#f43f5e', '#a3e635', '#facc15',
+            'rgba(99,102,241,0.4)', 'rgba(20,184,166,0.3)' // transparent night
+        ];
+        let isDay = true;
+        let dressIndex = 0;
+        function updateDress() {
+            const colors = isDay ? dayDressColors : nightDressColors;
+            document.documentElement.style.setProperty('--dress-color', colors[dressIndex]);
+        }
+        clothesBtn.onclick = function() {
+            const colors = isDay ? dayDressColors : nightDressColors;
+            dressIndex = (dressIndex + 1) % colors.length;
+            updateDress();
+        };
+        dayNightBtn.onclick = function() {
+            isDay = !isDay;
+            dayNightBtn.textContent = isDay ? '🌞' : '🌙';
+            dressIndex = 0;
+            updateDress();
+        };
+        danceBtn.onclick = function() {
+            avatarAnim.classList.add('dance');
+            avatarArmL.classList.add('dance');
+            avatarArmR.classList.add('dance');
+            // Remove dance after 3 seconds
+            setTimeout(() => {
+                avatarAnim.classList.remove('dance');
+                avatarArmL.classList.remove('dance');
+                avatarArmR.classList.remove('dance');
+            }, 3000);
+        };
+        spin3dBtn.onclick = function() {
+            avatarAnim.classList.add('threeD');
+            setTimeout(() => {
+                avatarAnim.classList.remove('threeD');
+            }, 1500);
+        };
+        // Set initial dress
+        updateDress();
+        function aiRespond(message) {
+            const msg = message.toLowerCase();
+            memory.push({user: message});
+            // Name learning
+            if (!userName && (msg.includes('my name is') || msg.startsWith('i am '))) {
+                userName = message.split(' ').slice(-1)[0].replace(/[^a-zA-Z0-9]/g, '');
+                return `Nice to meet you, ${userName}!`;
+            }
+            if (msg.includes('what is my name') || msg.includes('do you remember my name')) {
+                return userName ? `Your name is ${userName}.` : "I don't know your name yet. What's your name?";
+            }
+            if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+                return userName ? `Hello, ${userName}! How can I help you today?` : "Hello! What's your name?";
+            } else if (msg.includes('your name')) {
+                return "My name is WebAI.";
+            } else if (msg.includes('how are you')) {
+                return "I'm just code, but I'm here to help! How are you?";
+            } else if (msg.includes('joke')) {
+                const jokes = [
+                    "Why did the computer go to the doctor? Because it had a virus!",
+                    "Why do programmers prefer dark mode? Because light attracts bugs!",
+                    "Why did the AI go to school? To improve its neural network!",
+                    "Why was the math book sad? Because it had too many problems!",
+                    "Why did the scarecrow win an award? Because he was outstanding in his field!"
+                ];
+                return jokes[Math.floor(Math.random() * jokes.length)];
+            } else if (msg.includes('fact')) {
+                const facts = [
+                    "The Eiffel Tower can be 15 cm taller during hot days.",
+                    "Honey never spoils.",
+                    "Octopuses have three hearts.",
+                    "Bananas are berries, but strawberries aren't.",
+                    "A group of flamingos is called a 'flamboyance.'"
+                ];
+                return "Did you know? " + facts[Math.floor(Math.random() * facts.length)];
+            } else if (msg.includes('date') && msg.includes('time')) {
+                const now = new Date();
+                return `It's ${now.toLocaleDateString()} ${now.toLocaleTimeString()} right now.`;
+            } else if (msg.includes('date')) {
+                return "Today's date is " + new Date().toLocaleDateString() + ".";
+            } else if (msg.includes('time')) {
+                return "The current time is " + new Date().toLocaleTimeString() + ".";
+            } else if (msg.match(/add|plus|sum|subtract|minus|difference|multiply|times|product|divide|divided/)) {
+                // Basic math
+                try {
+                    let numbers = message.match(/-?\d+(\.\d+)?/g)?.map(Number) || [];
+                    if (msg.includes('add') || msg.includes('plus') || msg.includes('sum')) {
+                        if (numbers.length >= 2) return `The sum is ${(numbers.reduce((a,b)=>a+b,0)).toFixed(2)}.`;
+                        else return "Please provide two numbers to add.";
+                    } else if (msg.includes('subtract') || msg.includes('minus') || msg.includes('difference')) {
+                        if (numbers.length >= 2) return `The difference is ${(numbers[0]-numbers[1]).toFixed(2)}.`;
+                        else return "Please provide two numbers to subtract.";
+                    } else if (msg.includes('multiply') || msg.includes('times') || msg.includes('product')) {
+                        if (numbers.length >= 2) return `The product is ${(numbers.reduce((a,b)=>a*b,1)).toFixed(2)}.`;
+                        else return "Please provide two numbers to multiply.";
+                    } else if (msg.includes('divide') || msg.includes('divided')) {
+                        if (numbers.length >= 2) {
+                            if (numbers[1] === 0) return "Division by zero is not allowed.";
+                            return `The quotient is ${(numbers[0]/numbers[1]).toFixed(2)}.`;
+                        } else return "Please provide two numbers to divide.";
+                    }
+                } catch { return "Sorry, I couldn't calculate that."; }
+            } else if (msg.includes('weather')) {
+                return "I'm not connected to the internet, so I can't provide live weather updates. But I hope it's nice where you are!";
+            } else if (msg.includes('thank')) {
+                return "You're welcome!";
+            } else if (msg.includes('bye')) {
+                return "Goodbye! Have a great day!";
+            } else if (msg.includes('how do i') || msg.includes('how to')) {
+                return "I can try to help! Could you give me more details about what you're trying to do?";
+            } else if (msg.includes('should i') || msg.includes('do you think')) {
+                return "That's a good question! What do you think? Sometimes it's best to weigh the pros and cons.";
+            } else if (msg.includes('favorite')) {
+                return "I don't have personal preferences, but I can tell you about many things!";
+            } else if (msg.length < 3) {
+                return "Could you please provide more details?";
+            } else if (msg === 'yes' || msg === 'no') {
+                return "Could you clarify what you are referring to?";
+            } else if (msg.includes(' or ') && msg.includes('?')) {
+                let options = msg.split(' or ');
+                return `If I had to choose, I'd say '${options[Math.floor(Math.random()*options.length)]}'. What do you think?`;
+            } else if (msg.includes('why')) {
+                return "That's an interesting question! Sometimes, the answer depends on context. Could you tell me more?";
+            } else if (msg.includes('because')) {
+                return "I appreciate your reasoning! Can you elaborate further?";
+            } else if (msg.includes('who are you')) {
+                return "I am WebAI, your friendly AI assistant!";
+            } else {
+                // Memory-based fallback
+                if (memory.length > 1) {
+                    return "Earlier you said: '" + memory[memory.length-2].user + "'. Could you tell me more?";
+                }
+                return "I'm not sure I understand, but I'm always learning! Could you rephrase or give me more details?";
+            }
+        }
+
+        function appendMessage(sender, text) {
+            const div = document.createElement('div');
+            div.className = sender;
+            div.textContent = (sender === 'user' ? 'You: ' : 'AI: ') + text;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        // Theme toggle
+        const themeBtn = document.getElementById('themeBtn');
+        let darkMode = false;
+        themeBtn.onclick = function() {
+            darkMode = !darkMode;
+            document.body.classList.toggle('dark', darkMode);
+            themeBtn.textContent = darkMode ? '🌞' : '🌙';
+        };
+        // Clear chat
+        const clearBtn = document.getElementById('clearBtn');
+        clearBtn.onclick = function() {
+            chat.innerHTML = '';
+            localStorage.removeItem('aiChatHistory');
+        };
+        // Typing animation
+        sendBtn.onclick = function() {
+            const msg = userInput.value.trim();
+            if (!msg) return;
+            appendMessage('user', msg);
+            typingDiv.style.display = 'block';
+            setTimeout(() => {
+                const response = aiRespond(msg);
+                appendMessage('ai', response);
+                typingDiv.style.display = 'none';
+                saveChat();
+            }, 800);
+            userInput.value = '';
+            userInput.focus();
+        };
+        // Save chat to localStorage
+        function saveChat() {
+            localStorage.setItem('aiChatHistory', chat.innerHTML);
+        }
+        // Load chat from localStorage
+        window.onload = function() {
+            if (localStorage.getItem('aiChatHistory')) {
+                chat.innerHTML = localStorage.getItem('aiChatHistory');
+            }
+        };
+        userInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') sendBtn.click();
+        });
+        // Mouse-controlled 3D tilt
+        avatarAnim.addEventListener('mousemove', function(e) {
+            const rect = avatarAnim.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateY = ((x - centerX) / centerX) * 18; // max 18deg
+            const rotateX = -((y - centerY) / centerY) * 12; // max 12deg
+            avatarAnim.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+        });
+        avatarAnim.addEventListener('mouseleave', function() {
+            avatarAnim.style.transform = '';
+        });
+        
+    </script>
+</div>
+</body>
+</html>
