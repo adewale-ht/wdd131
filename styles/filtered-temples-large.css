@@ -1,0 +1,18 @@
+/* filtered-temples-large.css */
+@media (min-width: 900px) {
+    main {
+        max-width: 1200px;
+        padding: 3rem;
+    }
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    .temple-card {
+        padding: 2rem;
+        font-size: 1.1rem;
+    }
+    .temple-card img {
+        max-width: 300px;
+    }
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtered Temples Gallery – Adekunle Adewale John</title>
+    <meta name="description" content="A dynamic, filterable gallery of beautiful temples with accessible navigation and JavaScript filtering.">
+    <meta name="author" content="Adekunle Adewale John">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto+Serif:opsz,wght@8..144,500&display=swap">
+    <link rel="stylesheet" href="styles/filtered-temples.css">
+    <link rel="stylesheet" href="styles/filtered-temples-large.css">
+    <script src="scripts/getdates.js" defer></script>
+    <script src="scripts/filtered-temples.js" defer></script>
+</head>
+<body>
+    <header>
+        <span id="course-title">Filtered Temple Gallery</span>
+        <button id="menu-button" aria-label="Toggle Navigation Menu">☰</button>
+        <nav id="main-nav" class="closed">
+            <ul>
+                <li><a href="#" data-filter="all">Home</a></li>
+                <li><a href="#" data-filter="old">Old</a></li>
+                <li><a href="#" data-filter="new">New</a></li>
+                <li><a href="#" data-filter="large">Large</a></li>
+                <li><a href="#" data-filter="small">Small</a></li>
+                <li><a href="index.html">Main Site</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Filtered Temple Gallery</h1>
+        <section id="temple-gallery">
+            <h2>Temples</h2>
+            <div class="gallery" id="gallery"></div>
+        </section>
+        <section id="about">
+            <h3>About</h3>
+            <p>This gallery features beautiful temples from around the world. Use the navigation to filter by age or size. The layout is fully responsive and accessible.</p>
+        </section>
+        <section id="contact">
+            <h3>Contact</h3>
+            <p>Email: <a href="mailto:adewaleadekunlejohn14th@gmail.com">adewaleadekunlejohn14th@gmail.com</a></p>
+        </section>
+        <section id="resources">
+            <h3>Resources</h3>
+            <p>Images are from the local project folder and optimized for web use.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; <span id="currentyear"></span> Adekunle Adewale John, Nigeria.</p>
+        <p id="lastModified"></p>
+    </footer>
+</body>
+</html>
