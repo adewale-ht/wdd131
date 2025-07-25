@@ -42,21 +42,21 @@ const temples = [
     location: "Rome, Italy",
     dedicated: "March 10, 2019",
     area: 40000,
-    image: "images/5-Rome-Temple-2160345.jpg"
+    image: "images/Rome Italy Temple.jpeg"
   },
   {
     name: "Medford Oregon Temple",
     location: "Medford, Oregon, USA",
     dedicated: "April 16, 2000",
     area: 10700,
-    image: "images/medford-temple-lds-988404-wallpaper.jpg"
+    image: "images/Medford Oregon Temple.jpeg"
   },
   {
     name: "Anchorage Alaska Temple",
     location: "Anchorage, Alaska, USA",
     dedicated: "January 9, 1999",
     area: 11937,
-    image: "images/anchorage-temple-lds-253274-wallpaper.jpg"
+    image: "images/Anchorage Alaska Temple.jpeg"
   }
 ];
 
