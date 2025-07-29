@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Product Review Form</title>
-  <link rel="stylesheet" href="styles/form.css"/>
+  <meta name="description" content="Submit a review for your favorite tech product.">
+  <meta name="author" content="Adekunle Adewale John">
+  <link rel="stylesheet" href="styles/form.css" />
   <script src="scripts/form.js" defer></script>
 </head>
 <body>
@@ -14,13 +16,13 @@
 
   <main>
     <form method="get" action="review.html">
-      <!-- Product Name -->
+      
       <label for="product">Product Name: <span class="required">*</span></label>
       <select id="product" name="product" required>
         <option value="" disabled selected>Select a Product ...</option>
       </select>
 
-      <!-- Overall Rating -->
+      
       <fieldset>
         <legend>Overall Rating: <span class="required">*</span></legend>
         <label><input type="radio" name="rating" value="1" required /> 1 ☆</label>
@@ -30,11 +32,11 @@
         <label><input type="radio" name="rating" value="5" /> 5 ☆☆☆☆☆</label>
       </fieldset>
 
-      <!-- Date of Installation -->
+     
       <label for="installDate">Date of Installation: <span class="required">*</span></label>
       <input type="date" id="installDate" name="installDate" required />
 
-      <!-- Useful Features -->
+     
       <fieldset>
         <legend>Useful Features:</legend>
         <label><input type="checkbox" name="features" value="Battery Life" /> Battery Life</label>
@@ -43,15 +45,15 @@
         <label><input type="checkbox" name="features" value="Design" /> Design</label>
       </fieldset>
 
-      <!-- Written Review -->
+     
       <label for="review">Written Review:</label>
       <textarea id="review" name="review" rows="4" cols="40" placeholder="Write your thoughts..."></textarea>
 
-      <!-- User Name -->
+     
       <label for="username">Your Name (optional):</label>
       <input type="text" id="username" name="username" />
 
-      <!-- Submit -->
+      
       <input type="submit" value="Submit Review" />
     </form>
   </main>
